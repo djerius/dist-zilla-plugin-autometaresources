@@ -102,7 +102,20 @@ B<GitHub repository>:
     repository.web    = http://github.com/ajgb/%{lcdist}
     repository.type   = git
 
-B<Bitbucket repository>:
+B<GitLab repository>:
+
+    [AutoMetaResources]
+    repository.gitlab= user:ajgb
+    # or
+    repository.GitLab = user:ajgb
+
+    # same as
+    [MetaResources]
+    repository.url    = https://gitlab.com/ajgb/%{lcdist}.git
+    repository.web    = https://gitlab.com/ajgb/%{lcdist}
+    repository.type   = git
+
+B<Bitbucket Git repository>:
 
     [AutoMetaResources]
     repository.bitbucket = user:ajgb
@@ -112,6 +125,17 @@ B<Bitbucket repository>:
     repository.url    = git://bitbucket.org:ajgb/%{lcdist}.git
     repository.web    = https://bitbucket.org/ajgb/%{lcdist}
     repository.type   = git
+
+B<Bitbucket Mercurial repository>:
+
+    [AutoMetaResources]
+    repository.bitbucket_hg = user:ajgb
+
+    # same as
+    [MetaResources]
+    repository.url    = https://bitbucket.org/ajgb/%{lcdist}
+    repository.web    = https://bitbucket.org/ajgb/%{lcdist}
+    repository.type   = hg
 
 B<Git Moose repository>:
 
@@ -232,6 +256,16 @@ sub _build__repository_map {
             web  => 'https://bitbucket.org/%{user}/%{lcdist}',
             type => 'git',
         },
+        bitbucket_hg => {
+            url  => 'https://bitbucket.org/%{user}/%{lcdist}',
+            web  => 'https://bitbucket.org/%{user}/%{lcdist}',
+            type => 'hg',
+        },
+        gitlab => {
+            url => 'https://gitlab.com/%{user}/%{lcdist}.git',
+            web => 'https://gitlab.com/%{user}/%{lcdist}',
+            type => 'git',
+        },
         (map {
             ($_ => {
                 url     => "git://git.shadowcat.co.uk/$_/%{dist}.git",
@@ -256,6 +290,9 @@ sub _build__bugtracker_map {
         },
         github => {
             web => 'https://github.com/%{user}/%{lcdist}/issues',
+        },
+        gitlab => {
+            web => 'https://gitlab.com/%{user}/%{lcdist}/issues',
         },
         bitbucket => {
             web => 'https://bitbucket.org/%{user}/%{lcdist}/issues',

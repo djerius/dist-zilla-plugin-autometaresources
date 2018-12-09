@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 15;
+use Test::More tests => 17;
 use Test::NoWarnings;
 use Test::DZil;
 
@@ -59,11 +59,31 @@ is_deeply getMetadata({ 'repository.bitbucket' => 'user:xenoterracide' }),
     }
 , "repository.bitbucket is known";
 
+is_deeply getMetadata({ 'repository.bitbucket_hg' => 'user:xenoterracide' }),
+    {
+        'repository' => {
+            'web' => 'https://bitbucket.org/xenoterracide/dzt-sample',
+            'url' => 'https://bitbucket.org/xenoterracide/dzt-sample',
+            'type' => 'hg',
+        }
+    }
+, "repository.bitbucket is known";
+
 is_deeply getMetadata({ 'repository.GitHub' => 'user:ajgb' }),
     {
         'repository' => {
             'web' => 'https://github.com/ajgb/dzt-sample',
             'url' => 'git://github.com/ajgb/dzt-sample.git',
+            'type' => 'git',
+        }
+    }
+, "repository.GitHub is known";
+
+is_deeply getMetadata({ 'repository.GitLab' => 'user:ajgb' }),
+    {
+        'repository' => {
+            'web' => 'https://gitlab.com/ajgb/dzt-sample',
+            'url' => 'https://gitlab.com/ajgb/dzt-sample.git',
             'type' => 'git',
         }
     }
